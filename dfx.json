@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "admin_backend": {
+      "main": "src/admin_backend/main.mo",
+      "type": "motoko"
+    },
+    "admin_frontend": {
+      "dependencies": [
+        "admin_backend"
+      ],
+      "source": [
+        "src/admin_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "admin_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
