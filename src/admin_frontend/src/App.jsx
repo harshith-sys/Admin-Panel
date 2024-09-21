@@ -1,48 +1,36 @@
-import { useContext, useEffect } from "react";
-import "./App.scss";
-import { ThemeContext } from "./context/ThemeContext";
-import { DARK_THEME, LIGHT_THEME } from "./constants/themeConstants";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MoonIcon from "./assets/icons/moon.svg";
-import SunIcon from "./assets/icons/sun.svg";
-import BaseLayout from "./layout/BaseLayout";
-import { Dashboard, PageNotFound } from "./screens";
+import { Route, Routes } from "react-router-dom";
+
+import Sidebar from "./components/common/Sidebar";
+
+import OverviewPage from "./pages/OverviewPage";
+import ProductsPage from "./pages/ProductsPage";
+import UsersPage from "./pages/UsersPage";
+import SalesPage from "./pages/SalesPage";
+import OrdersPage from "./pages/OrdersPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+	return (
+		<div className='flex h-screen bg-gray-900 text-gray-100 overflow-hidden'>
+			{/* BG */}
+			<div className='fixed inset-0 z-0'>
+				<div className='absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80' />
+				<div className='absolute inset-0 backdrop-blur-sm' />
+			</div>
 
-  // adding dark-mode class if the dark mode is set on to the body tag
-  useEffect(() => {
-    if (theme === DARK_THEME) {
-      document.body.classList.add("dark-mode");
-    } else {
-      document.body.classList.remove("dark-mode");
-    }
-  }, [theme]);
-
-  return (
-    <>
-      <Router>
-        <Routes>
-          <Route element={<BaseLayout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-        </Routes>
-
-        <button
-          type="button"
-          className="theme-toggle-btn"
-          onClick={toggleTheme}
-        >
-          <img
-            className="theme-icon"
-            src={theme === LIGHT_THEME ? SunIcon : MoonIcon}
-          />
-        </button>
-      </Router>
-    </>
-  );
+			<Sidebar />
+			<Routes>
+				<Route path='/' element={<OverviewPage />} />
+				<Route path='/products' element={<ProductsPage />} />
+				<Route path='/users' element={<UsersPage />} />
+				<Route path='/sales' element={<SalesPage />} />
+				<Route path='/orders' element={<OrdersPage />} />
+				<Route path='/analytics' element={<AnalyticsPage />} />
+				<Route path='/settings' element={<SettingsPage />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
